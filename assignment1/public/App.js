@@ -8,7 +8,7 @@ var headshot = React.createElement("img", {
 });
 var description = React.createElement("p", null, "Hi, I am Jorge Chavez a 26 year old student at San Diego State University who is pursuing a Master's degree in Computer Science. I currently have a job as a Software Engineer, and I really enjoy writing software and learning new technologies. One of my favorites hobbies is to play online games with my friends. I have a github repo that I am currently working to improve, check it out by pressing the link below!");
 var repoLink = React.createElement("form", {
-  action: "https://github.com/jorgech1993/Assignment1"
+  action: "https://github.com/jorgech1993/CS648--Modern-Full-Stack-Dev/tree/master/assignment1"
 }, React.createElement("button", {
   type: "submit"
 }, "VIEW MY GITHUB REPO"));

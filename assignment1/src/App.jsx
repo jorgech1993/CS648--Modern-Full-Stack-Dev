@@ -16,7 +16,7 @@ const description = (
 );
 
 const repoLink = (
-	<form action="https://github.com/jorgech1993/Assignment1">
+	<form action="https://github.com/jorgech1993/CS648--Modern-Full-Stack-Dev/tree/master/assignment1">
 		<button type="submit">VIEW MY GITHUB REPO</button>
 	</form>
 );
