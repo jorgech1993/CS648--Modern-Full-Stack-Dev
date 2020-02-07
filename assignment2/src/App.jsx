@@ -30,7 +30,7 @@ class IssueRow extends React.Component{
 				<td className="bordered-table">{issue.productName}</td>
 				<td className="bordered-table">{'$' + issue.pricePerUnit}</td>
 				<td className="bordered-table">{issue.category}</td>
-				<td className="bordered-table">{issue.imageUrl}</td>
+				<td className="bordered-table"> <a href= {issue.imageUrl} rel="noopener noreferrer" target="_blank">View</a></td>
 			</tr>
 		);
 	}
@@ -52,7 +52,7 @@ class IssueAdd extends React.Component{
 			productName: form.productName.value,
 			imageUrl: form.imageUrl.value,
 		}
-		
+
 		this.props.createIssue(issue);
 		form.category.value = " ";
 		form.pricePerUnit.value = "$";

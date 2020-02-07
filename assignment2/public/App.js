@@ -80,7 +80,11 @@ function (_React$Component2) {
         className: "bordered-table"
       }, issue.category), React.createElement("td", {
         className: "bordered-table"
-      }, issue.imageUrl));
+      }, " ", React.createElement("a", {
+        href: issue.imageUrl,
+        rel: "noopener noreferrer",
+        target: "_blank"
+      }, "View")));
     }
   }]);
 
