@@ -18,49 +18,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var initialIssues = [{
-  id: 1,
-  status: 'New',
-  owner: 'Ravan',
-  effort: 5,
-  created: new Date('2018-08-15'),
-  due: undefined,
-  title: 'Error in console when clicking Add'
-}, {
-  id: 2,
-  status: 'Assigned',
-  owner: 'Eddie',
-  effort: 14,
-  created: new Date('2018-08-16'),
-  due: new Date('2018-08-30'),
-  title: 'Missing bottom border on panel'
-}];
-
-var IssueFilter =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(IssueFilter, _React$Component);
-
-  function IssueFilter() {
-    _classCallCheck(this, IssueFilter);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(IssueFilter).apply(this, arguments));
-  }
-
-  _createClass(IssueFilter, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", null, "This is a placeholder for the issue filter. ");
-    }
-  }]);
-
-  return IssueFilter;
-}(React.Component);
+var initialIssues = [];
 
 var IssueTable =
 /*#__PURE__*/
-function (_React$Component2) {
-  _inherits(IssueTable, _React$Component2);
+function (_React$Component) {
+  _inherits(IssueTable, _React$Component);
 
   function IssueTable() {
     _classCallCheck(this, IssueTable);
@@ -79,7 +42,15 @@ function (_React$Component2) {
       });
       return React.createElement("table", {
         className: "bordered-table"
-      }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "ID"), React.createElement("th", null, "Status"), React.createElement("th", null, "Owner"), React.createElement("th", null, "Created"), React.createElement("th", null, "Effor"), React.createElement("th", null, "Due Date"), React.createElement("th", null, "Title"))), React.createElement("tbody", null, issueRows));
+      }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", {
+        className: "bordered-table"
+      }, "Product Name"), React.createElement("th", {
+        className: "bordered-table"
+      }, "Price"), React.createElement("th", {
+        className: "bordered-table"
+      }, "Category"), React.createElement("th", {
+        className: "bordered-table"
+      }, "Image"))), React.createElement("tbody", null, issueRows));
     }
   }]);
 
@@ -88,8 +59,8 @@ function (_React$Component2) {
 
 var IssueRow =
 /*#__PURE__*/
-function (_React$Component3) {
-  _inherits(IssueRow, _React$Component3);
+function (_React$Component2) {
+  _inherits(IssueRow, _React$Component2);
 
   function IssueRow() {
     _classCallCheck(this, IssueRow);
@@ -101,7 +72,15 @@ function (_React$Component3) {
     key: "render",
     value: function render() {
       var issue = this.props.issue;
-      return React.createElement("tr", null, React.createElement("td", null, issue.id), React.createElement("td", null, issue.status), React.createElement("td", null, issue.owner), React.createElement("td", null, issue.created.toDateString()), React.createElement("td", null, issue.effort), React.createElement("td", null, issue.due ? issue.due.toDateString() : ''), React.createElement("td", null, issue.title));
+      return React.createElement("tr", null, React.createElement("td", {
+        className: "bordered-table"
+      }, issue.productName), React.createElement("td", {
+        className: "bordered-table"
+      }, '$' + issue.pricePerUnit), React.createElement("td", {
+        className: "bordered-table"
+      }, issue.category), React.createElement("td", {
+        className: "bordered-table"
+      }, issue.imageUrl));
     }
   }]);
 
@@ -110,8 +89,8 @@ function (_React$Component3) {
 
 var IssueAdd =
 /*#__PURE__*/
-function (_React$Component4) {
-  _inherits(IssueAdd, _React$Component4);
+function (_React$Component3) {
+  _inherits(IssueAdd, _React$Component3);
 
   function IssueAdd() {
     var _this;
@@ -129,29 +108,70 @@ function (_React$Component4) {
       e.preventDefault();
       var form = document.forms.issueAdd;
       var issue = {
-        owner: form.owner.value,
-        title: form.title.value,
-        status: 'New'
+        category: form.category.value,
+        pricePerUnit: form.pricePerUnit.value.replace('$', ''),
+        productName: form.productName.value,
+        imageUrl: form.imageUrl.value
       };
       this.props.createIssue(issue);
-      form.owner.value = "";
-      form.title.value = "";
+      form.category.value = " ";
+      form.pricePerUnit.value = "$";
+      form.productName.value = "";
+      form.imageUrl.value = "";
     }
   }, {
     key: "render",
     value: function render() {
       return React.createElement("form", {
+        id: "inventoryForm",
         name: "issueAdd",
         onSubmit: this.handleSubmit
+      }, React.createElement("table", {
+        className: "formTable"
+      }, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {
+        className: "formTableData"
+      }, "Category"), React.createElement("td", {
+        className: "formTableData"
+      }, "Price Per Unit")), React.createElement("tr", null, React.createElement("td", {
+        className: "formTableData"
+      }, React.createElement("select", {
+        id: "categoryList",
+        name: "category"
+      }, React.createElement("option", {
+        value: " "
+      }), React.createElement("option", {
+        value: "Shirts"
+      }, "Shirts"), React.createElement("option", {
+        value: "Jeans"
+      }, "Jeans"), React.createElement("option", {
+        value: "Jackets"
+      }, "Jackets"), React.createElement("option", {
+        value: "Sweaters"
+      }, "Sweaters"), React.createElement("option", {
+        value: "Accessories"
+      }, "Accessories"))), React.createElement("td", {
+        className: "formTableData"
       }, React.createElement("input", {
         type: "text",
-        name: "owner",
-        placeholder: "Owner"
-      }), React.createElement("input", {
+        name: "pricePerUnit",
+        defaultValue: "$"
+      }))), React.createElement("tr", null, React.createElement("td", {
+        className: "formTableData"
+      }, "Product Name"), React.createElement("td", {
+        className: "formTableData"
+      }, "Image URL")), React.createElement("tr", null, React.createElement("td", {
+        className: "formTableData"
+      }, React.createElement("input", {
         type: "text",
-        name: "title",
-        placeholder: "Title"
-      }), React.createElement("button", null, "Add"));
+        name: "productName"
+      })), React.createElement("td", {
+        className: "formTableData"
+      }, React.createElement("input", {
+        type: "text",
+        name: "imageUrl"
+      }))))), React.createElement("button", {
+        id: "addButton"
+      }, "Add Product"));
     }
   }]);
 
@@ -160,8 +180,8 @@ function (_React$Component4) {
 
 var IssueList =
 /*#__PURE__*/
-function (_React$Component5) {
-  _inherits(IssueList, _React$Component5);
+function (_React$Component4) {
+  _inherits(IssueList, _React$Component4);
 
   function IssueList() {
     var _this2;
@@ -180,7 +200,6 @@ function (_React$Component5) {
     key: "createIssue",
     value: function createIssue(issue) {
       issue.id = this.state.issues.length + 1;
-      issue.created = new Date();
       var newIssueList = this.state.issues.slice();
       newIssueList.push(issue);
       this.setState({
@@ -206,9 +225,17 @@ function (_React$Component5) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement(React.Fragment, null, React.createElement("h1", null, "Issue Tracker"), React.createElement(IssueFilter, null), React.createElement("hr", null), React.createElement(IssueTable, {
+      return React.createElement(React.Fragment, null, React.createElement("h1", null, "My Company Inventory"), React.createElement("div", {
+        id: "tableHeader"
+      }, "Showing all available products"), React.createElement("hr", {
+        align: "left"
+      }), React.createElement(IssueTable, {
         issues: this.state.issues
-      }), React.createElement("hr", null), React.createElement(IssueAdd, {
+      }), React.createElement("div", {
+        id: "fieldsHeader"
+      }, "Add a new product to inventory"), React.createElement("hr", {
+        align: "left"
+      }), React.createElement(IssueAdd, {
         createIssue: this.createIssue
       }));
     }
