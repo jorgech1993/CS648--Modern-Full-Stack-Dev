@@ -18,26 +18,24 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var initialIssues = [];
-
-var IssueTable =
+var InventoryTable =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(IssueTable, _React$Component);
+  _inherits(InventoryTable, _React$Component);
 
-  function IssueTable() {
-    _classCallCheck(this, IssueTable);
+  function InventoryTable() {
+    _classCallCheck(this, InventoryTable);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(IssueTable).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(InventoryTable).apply(this, arguments));
   }
 
-  _createClass(IssueTable, [{
+  _createClass(InventoryTable, [{
     key: "render",
     value: function render() {
-      var issueRows = this.props.issues.map(function (issue) {
-        return React.createElement(IssueRow, {
-          key: issue.id,
-          issue: issue
+      var productRows = this.props.products.map(function (product) {
+        return React.createElement(ProductRow, {
+          key: product.id,
+          product: product
         });
       });
       return React.createElement("table", {
@@ -50,74 +48,74 @@ function (_React$Component) {
         className: "bordered-table"
       }, "Category"), React.createElement("th", {
         className: "bordered-table"
-      }, "Image"))), React.createElement("tbody", null, issueRows));
+      }, "Image"))), React.createElement("tbody", null, productRows));
     }
   }]);
 
-  return IssueTable;
+  return InventoryTable;
 }(React.Component);
 
-var IssueRow =
+var ProductRow =
 /*#__PURE__*/
 function (_React$Component2) {
-  _inherits(IssueRow, _React$Component2);
+  _inherits(ProductRow, _React$Component2);
 
-  function IssueRow() {
-    _classCallCheck(this, IssueRow);
+  function ProductRow() {
+    _classCallCheck(this, ProductRow);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(IssueRow).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(ProductRow).apply(this, arguments));
   }
 
-  _createClass(IssueRow, [{
+  _createClass(ProductRow, [{
     key: "render",
     value: function render() {
-      var issue = this.props.issue;
+      var product = this.props.product;
       return React.createElement("tr", null, React.createElement("td", {
         className: "bordered-table"
-      }, issue.productName), React.createElement("td", {
+      }, product.productName), React.createElement("td", {
         className: "bordered-table"
-      }, '$' + issue.pricePerUnit), React.createElement("td", {
+      }, '$' + product.pricePerUnit), React.createElement("td", {
         className: "bordered-table"
-      }, issue.category), React.createElement("td", {
+      }, product.category), React.createElement("td", {
         className: "bordered-table"
       }, " ", React.createElement("a", {
-        href: issue.imageUrl,
+        href: product.imageUrl,
         rel: "noopener noreferrer",
         target: "_blank"
       }, "View")));
     }
   }]);
 
-  return IssueRow;
+  return ProductRow;
 }(React.Component);
 
-var IssueAdd =
+var ProductAdd =
 /*#__PURE__*/
 function (_React$Component3) {
-  _inherits(IssueAdd, _React$Component3);
+  _inherits(ProductAdd, _React$Component3);
 
-  function IssueAdd() {
+  function ProductAdd() {
     var _this;
 
-    _classCallCheck(this, IssueAdd);
+    _classCallCheck(this, ProductAdd);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(IssueAdd).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ProductAdd).call(this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(IssueAdd, [{
+  _createClass(ProductAdd, [{
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var form = document.forms.issueAdd;
-      var issue = {
+      var form = document.forms.productAdd;
+      var product = {
         category: form.category.value,
         pricePerUnit: form.pricePerUnit.value.replace('$', ''),
         productName: form.productName.value,
         imageUrl: form.imageUrl.value
       };
-      this.props.createIssue(issue);
+      this.props.createProduct(product);
       form.category.value = " ";
       form.pricePerUnit.value = "$";
       form.productName.value = "";
@@ -128,7 +126,7 @@ function (_React$Component3) {
     value: function render() {
       return React.createElement("form", {
         id: "inventoryForm",
-        name: "issueAdd",
+        name: "productAdd",
         onSubmit: this.handleSubmit
       }, React.createElement("table", {
         className: "formTable"
@@ -179,35 +177,35 @@ function (_React$Component3) {
     }
   }]);
 
-  return IssueAdd;
+  return ProductAdd;
 }(React.Component);
 
-var IssueList =
+var Inventory =
 /*#__PURE__*/
 function (_React$Component4) {
-  _inherits(IssueList, _React$Component4);
+  _inherits(Inventory, _React$Component4);
 
-  function IssueList() {
+  function Inventory() {
     var _this2;
 
-    _classCallCheck(this, IssueList);
+    _classCallCheck(this, Inventory);
 
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(IssueList).call(this));
+    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Inventory).call(this));
     _this2.state = {
-      issues: []
+      products: []
     };
-    _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2));
+    _this2.createProduct = _this2.createProduct.bind(_assertThisInitialized(_this2));
     return _this2;
   }
 
-  _createClass(IssueList, [{
-    key: "createIssue",
-    value: function createIssue(issue) {
-      issue.id = this.state.issues.length + 1;
-      var newIssueList = this.state.issues.slice();
-      newIssueList.push(issue);
+  _createClass(Inventory, [{
+    key: "createProduct",
+    value: function createProduct(product) {
+      product.id = this.state.products.length + 1;
+      var newInventory = this.state.products.slice();
+      newInventory.push(product);
       this.setState({
-        issues: newIssueList
+        products: newInventory
       });
     }
   }, {
@@ -222,7 +220,7 @@ function (_React$Component4) {
 
       setTimeout(function () {
         _this3.setState({
-          issues: initialIssues
+          products: []
         });
       }, 500);
     }
@@ -233,20 +231,20 @@ function (_React$Component4) {
         id: "tableHeader"
       }, "Showing all available products"), React.createElement("hr", {
         align: "left"
-      }), React.createElement(IssueTable, {
-        issues: this.state.issues
+      }), React.createElement(InventoryTable, {
+        products: this.state.products
       }), React.createElement("div", {
         id: "fieldsHeader"
       }, "Add a new product to inventory"), React.createElement("hr", {
         align: "left"
-      }), React.createElement(IssueAdd, {
-        createIssue: this.createIssue
+      }), React.createElement(ProductAdd, {
+        createProduct: this.createProduct
       }));
     }
   }]);
 
-  return IssueList;
+  return Inventory;
 }(React.Component);
 
-var element = React.createElement(IssueList, null);
+var element = React.createElement(Inventory, null);
 ReactDOM.render(element, document.getElementById('contents'));
