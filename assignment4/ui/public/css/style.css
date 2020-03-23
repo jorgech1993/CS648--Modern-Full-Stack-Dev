@@ -1,0 +1,69 @@
+body {
+	height: 100%;
+	width: 100%;
+}
+
+#tableHeader {
+	font-size: 20px;
+}
+
+#fieldsHeader {
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+.formTable {
+	width: 600px;
+	text-align: left;
+	border-collapse: collapse;
+}
+
+.formTableData {
+	border: none;
+	height: 25px;
+	font-size: 20px;
+}
+
+#categoryList {
+	border: 1px solid black;
+	width: 204px;
+	height: 25px;
+	font-size: 20px;
+}
+
+input {
+	border: 1px solid black;
+	width: 200px;
+	height: 25px;
+	font-size: 20px;
+}
+
+td {
+	font-size: 20px;
+}
+
+hr {
+	width: 600px;
+}
+
+.bordered-table {
+	border: 1px solid black;
+	padding: 4px;
+	width: 600px;
+}
+
+.bordered-table {
+	border-collapse: collapse;
+}
+
+#addButton {
+	margin-top: 20px;
+	display: block;
+	width: 150px;
+	height: 35px;
+	border: 1px solid black;
+	background-color: white;
+	font-size: 20px;
+	cursor: pointer;
+	text-align: center;
+}
