@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import graphQLFetch from './graphQLFetch.jsx';
+import NumInput from './NumInput.jsx';
+import TextInput from './TextInput.jsx';
 
 export default class ProductEdit extends React.Component {
   constructor() {
@@ -25,8 +27,9 @@ export default class ProductEdit extends React.Component {
     }
   }
 
-  onChange(event) {
-    const { name, value } = event.target;
+  onChange(event, naturalValue) {
+    const { name, value: textValue } = event.target;
+    const value = naturalValue === undefined ? textValue : naturalValue;
     this.setState(prevState => ({
       issue: { ...prevState.issue, [name]: value },
     }));
@@ -47,16 +50,7 @@ export default class ProductEdit extends React.Component {
 
     const { match: { params: { id } } } = this.props;
     const data = await graphQLFetch(query, { id });
-    if (data) {
-      const { product } = data;
-      product.category = product.category ? product.category.toString() : '';
-      product.productName = product.productName != null ? product.productName.toString() : '';
-      product.pricePerUnit = product.pricePerUnit != null ? product.pricePerUnit.toString() : '';
-      product.imageUrl = product.imageUrl != null ? product.imageUrl.toString() : '';
-      this.setState({ product });
-    } else {
-      this.setState({ product: {} });
-    }
+    this.setState({ product: data ? data.product : {}, invalidFields: {} });
   }
 
   render() {
@@ -75,16 +69,22 @@ export default class ProductEdit extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>{`Editing product: ${id}`}</h3>
-        <table>
+        <table className="formTable">
           <tbody>
             <tr>
-              <td>Product Name:</td>
-              <td>{productName.toString()}</td>
+              <td className="formTableData">Product Name:</td>
+              <td>
+	              <TextInput
+	              	name="productName"
+	              	value={productName}
+	              	onChange={this.onChange}
+	              />
+	          </td>
             </tr>
             <tr>
-              <td>Category:</td>
+              <td className="formTableData">Category:</td>
               <td>
-                <select name="category" value={category} onChange={this.onChange}>
+                <select name="category" id="categoryList" value={category} onChange={this.onChange}>
                   <option value="Shirts">Shirts</option>
                   <option value="Jeans">Jeans</option>
                   <option value="Jackets">Jackets</option>
@@ -94,19 +94,20 @@ export default class ProductEdit extends React.Component {
               </td>
             </tr>
             <tr>
-              <td>pricePerUnit:</td>
+              <td className="formTableData">pricePerUnit($):</td>
               <td>
-                <input
+                <NumInput
                   name="pricePerUnit"
-                  value={`$${pricePerUnit}`}
+                  value={`${pricePerUnit}`}
                   onChange={this.onChange}
+                  key={id}
                 />
               </td>
             </tr>
             <tr>
-              <td>imageUrl:</td>
+              <td className="formTableData">imageUrl:</td>
               <td>
-                <input
+                <TextInput
                   name="imageUrl"
                   value={imageUrl}
                   onChange={this.onChange}
@@ -115,7 +116,7 @@ export default class ProductEdit extends React.Component {
             </tr>
             <tr>
               <td />
-              <td><button type="submit">Submit</button></td>
+              <td><button id="addButton" type="submit">Submit</button></td>
             </tr>
           </tbody>
         </table>
