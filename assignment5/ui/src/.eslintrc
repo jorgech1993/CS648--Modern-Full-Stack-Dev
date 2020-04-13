@@ -1,6 +1,7 @@
 {
   "extends": "airbnb",
   "env": {
+    "import/extensions": ["error", "always", { "ignorePackages": true } ],
     "browser": true
   },
   rules: {
