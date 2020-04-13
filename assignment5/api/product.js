@@ -19,4 +19,10 @@ async function add(_, { product }) {
   return savedProduct;
 }
 
-module.exports = { list, add };
+async function get(_, { id }) {
+  const db = getDb();
+  const issue = await db.collection('products').findOne({ id });
+  return issue;
+}
+
+module.exports = { list, add, get };
