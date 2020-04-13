@@ -36,9 +36,19 @@ async function update(_, { id, changes }) {
   return savedProduct;
 }
 
+async function remove(_, { id }) {
+  const db = getDb();
+  const product = await db.collection('products').findOne({ id });
+  if (!product) return false;
+
+  result = await db.collection('products').removeOne({ id });
+  return true;
+}
+
 module.exports = {
   list,
   add,
   get,
   update,
+  remove,
 };
