@@ -7,6 +7,7 @@ function ProductRow(props) {
       <td className="bordered-table">{product.productName}</td>
       <td className="bordered-table">{`$${product.pricePerUnit}`}</td>
       <td className="bordered-table">{product.category}</td>
+      <td className="bordered-table"><a href={`/#edit/${product.id}`}>Edit</a></td>
       <td className="bordered-table">
         {' '}
         <a href={product.imageUrl} rel="noopener noreferrer" target="_blank">View</a>
@@ -25,6 +26,7 @@ export default function InventoryTable(props) {
           <th className="bordered-table">Product Name</th>
           <th className="bordered-table">Price</th>
           <th className="bordered-table">Category</th>
+          <th className="bordered-table">Actions</th>
           <th className="bordered-table">Image</th>
         </tr>
       </thead>
