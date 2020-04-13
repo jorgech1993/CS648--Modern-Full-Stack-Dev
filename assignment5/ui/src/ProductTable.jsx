@@ -8,7 +8,7 @@ const ProductRow = withRouter(({
   return (
     <tr>
       <td className="bordered-table">{product.productName}</td>
-      <td className="bordered-table">{product.pricePerUnit}</td>
+      <td className="bordered-table">{`$${product.pricePerUnit}`}</td>
       <td className="bordered-table">{product.category}</td>
       <td className="bordered-table">
         {' '}
