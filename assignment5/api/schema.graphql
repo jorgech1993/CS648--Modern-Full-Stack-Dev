@@ -22,15 +22,24 @@ input ProductInputs {
 	imageUrl: String
 }
 
+"""Inputs for productUpdate."""
+input ProductUpdateInputs {
+  productName: String!
+  category: Categories
+  pricePerUnit: Float
+  imageUrl: String
+}
+
 ##### Top Level declarations
 
 type Query {
-		about: String!
-		productList: [Product!]!
-		product(id: Int!): Product!
+	about: String!
+	productList: [Product!]!
+	product(id: Int!): Product!
 }
 
 type Mutation {
 	setAboutMessage(message: String!): String
 	productAdd(product: ProductInputs!): Product!
+	productUpdate(id: Int!, changes: ProductUpdateInputs!): Product!
 }

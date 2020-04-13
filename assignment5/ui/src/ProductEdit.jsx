@@ -31,14 +31,33 @@ export default class ProductEdit extends React.Component {
     const { name, value: textValue } = event.target;
     const value = naturalValue === undefined ? textValue : naturalValue;
     this.setState(prevState => ({
-      issue: { ...prevState.issue, [name]: value },
+      product: { ...prevState.product, [name]: value },
     }));
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    const { issue } = this.state;
-    console.log(issue); // eslint-disable-line no-console
+    const { product, invalidFields } = this.state;
+    if (Object.keys(invalidFields).length !== 0) return;
+
+    const query = `mutation productUpdate(
+      $id: Int!
+      $changes: ProductUpdateInputs!
+    ) {
+      productUpdate(
+        id: $id
+        changes: $changes
+      ) {
+        id category productName pricePerUnit imageUrl
+      }
+    }`;
+
+    const { id, created, ...changes } = product;
+    const data = await graphQLFetch(query, { changes, id });
+    if (data) {
+      this.setState({ product: data.productUpdate });
+      alert('Updated product successfully'); // eslint-disable-line no-alert
+    }
   }
 
   async loadData() {
@@ -78,6 +97,7 @@ export default class ProductEdit extends React.Component {
 	              	name="productName"
 	              	value={productName}
 	              	onChange={this.onChange}
+	              	key={id}
 	              />
 	          </td>
             </tr>
@@ -111,6 +131,7 @@ export default class ProductEdit extends React.Component {
                   name="imageUrl"
                   value={imageUrl}
                   onChange={this.onChange}
+                  key={id}
                 />
               </td>
             </tr>

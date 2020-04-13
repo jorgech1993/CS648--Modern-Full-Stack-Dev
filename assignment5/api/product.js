@@ -25,4 +25,20 @@ async function get(_, { id }) {
   return issue;
 }
 
-module.exports = { list, add, get };
+async function update(_, { id, changes }) {
+  const db = getDb();
+  if (changes.productName || changes.imageUrl || changes.pricePerUnit || changes.category) {
+    const product = await db.collection('products').findOne({ id });
+    Object.assign(product, changes);
+  }
+  await db.collection('products').updateOne({ id }, { $set: changes });
+  const savedProduct = await db.collection('products').findOne({ id });
+  return savedProduct;
+}
+
+module.exports = {
+  list,
+  add,
+  get,
+  update,
+};

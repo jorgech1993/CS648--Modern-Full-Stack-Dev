@@ -44,7 +44,7 @@ export default class Inventory extends React.Component {
         <h1>My Company Inventory</h1>
         <div id="tableHeader">Showing all available products</div>
         <hr align="left" />
-        <ProductTable products={this.state.products} />
+        <ProductTable products={this.state.products}/>
         <div id="fieldsHeader">Add a new product to inventory</div>
         <hr align="left" />
         <ProductAdd createProduct={this.createProduct} />
