@@ -16,6 +16,7 @@ const ProductRow = withRouter(({
       </td>
       <td>
         <Link to={`/edit/${product.id}`}>Edit</Link>
+        {' | '}
         <button type="button" onClick={() => { deleteProduct(index); }}>
           Delete
         </button>
