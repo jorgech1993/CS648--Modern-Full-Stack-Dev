@@ -1,10 +1,27 @@
 import React from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import {
+  Button, Glyphicon, Tooltip, OverlayTrigger, Table,
+} from 'react-bootstrap';
 
 const ProductRow = withRouter(({
   product, deleteProduct, index,
 }) => {
-  
+
+  function onDelete(e) {
+    e.preventDefault();
+    deleteProduct(index);
+  }
+
+  const editTooltip = (
+    <Tooltip id="close-tooltip" placement="top">Edit Product</Tooltip>
+  );
+
+    const deleteTooltip = (
+    <Tooltip id="delete-tooltip" placement="top">Delete Product</Tooltip>
+  );
+
   return (
     <tr>
       <td className="bordered-table">{product.productName}</td>
@@ -15,11 +32,19 @@ const ProductRow = withRouter(({
         <a href={product.imageUrl} rel="noopener noreferrer" target="_blank">View</a>
       </td>
       <td>
-        <Link to={`/edit/${product.id}`}>Edit</Link>
-        {' | '}
-        <button type="button" onClick={() => { deleteProduct(index); }}>
-          Delete
-        </button>
+        <LinkContainer to={`/edit/${product.id}`}>
+          <OverlayTrigger delayShow={1000} overlay={editTooltip}>
+            <Button bsSize="xsmall">
+              <Glyphicon glyph="edit" />
+            </Button>
+          </OverlayTrigger>
+        </LinkContainer>
+        {' '}
+        <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
+          <Button bsSize="xsmall" onClick={onDelete}>
+            <Glyphicon glyph="trash" />
+          </Button>
+        </OverlayTrigger>
       </td>
     </tr>
   );
@@ -36,7 +61,7 @@ export default function InventoryTable({ products, deleteProduct }) {
   ));
 
   return (
-    <table className="bordered-table">
+    <Table bordered condensed hover responsive>
       <thead>
         <tr>
           <th className="bordered-table">Product Name</th>
@@ -49,6 +74,6 @@ export default function InventoryTable({ products, deleteProduct }) {
       <tbody>
         {productRows}
       </tbody>
-    </table>
+    </Table>
   );
 }

@@ -63,9 +63,6 @@ async deleteProduct(index) {
   render() {
     return (
       <React.Fragment>
-        <h1>My Company Inventory</h1>
-        <div id="tableHeader">Showing all available products</div>
-        <hr align="left" />
         <ProductTable products={this.state.products} deleteProduct={this.deleteProduct}/>
         <div id="fieldsHeader">Add a new product to inventory</div>
         <hr align="left" />
