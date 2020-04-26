@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import {
+  Col, Panel, Form, FormGroup, FormControl, ControlLabel,
+  ButtonToolbar, Button,
+} from 'react-bootstrap';
 
 import graphQLFetch from './graphQLFetch.jsx';
 import NumInput from './NumInput.jsx';
@@ -86,65 +91,78 @@ export default class ProductEdit extends React.Component {
     const { product: { pricePerUnit, imageUrl } } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>{`Editing product: ${id}`}</h3>
-        <table className="formTable">
-          <tbody>
-            <tr>
-              <td className="formTableData">Product Name:</td>
-              <td>
-	              <TextInput
-	              	name="productName"
-	              	value={productName}
-	              	onChange={this.onChange}
-	              	key={id}
-	              />
-	          </td>
-            </tr>
-            <tr>
-              <td className="formTableData">Category:</td>
-              <td>
-                <select name="category" id="categoryList" value={category} onChange={this.onChange}>
+      <Panel>
+        <Panel.Heading>
+          <Panel.Title>{`Editing Product: ${id}`}</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <Form horizontal onSubmit={this.handleSubmit}>
+             <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Product Name</Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass={TextInput}
+                  name="productName"
+                  value={productName}
+                  onChange={this.onChange}
+                  key={id}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Category</Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass="select"
+                  name="category"
+                  value={category}
+                  onChange={this.onChange}
+                >
                   <option value="Shirts">Shirts</option>
                   <option value="Jeans">Jeans</option>
                   <option value="Jackets">Jackets</option>
                   <option value="Sweaters">Sweaters</option>
                   <option value="Accessories">Accessories</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td className="formTableData">pricePerUnit($):</td>
-              <td>
-                <NumInput
+                </FormControl>
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Price Per Unit ($)</Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass={NumInput}
                   name="pricePerUnit"
                   value={`${pricePerUnit}`}
                   onChange={this.onChange}
                   key={id}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td className="formTableData">imageUrl:</td>
-              <td>
-                <TextInput
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Image URL</Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass={TextInput}
                   name="imageUrl"
                   value={imageUrl}
                   onChange={this.onChange}
                   key={id}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td />
-              <td><button id="addButton" type="submit">Submit</button></td>
-            </tr>
-          </tbody>
-        </table>
-        <Link to={`/edit/${id - 1}`}>Prev</Link>
-        {' | '}
-        <Link to={`/edit/${id + 1}`}>Next</Link>
-      </form>
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col smOffset={3} sm={6}>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" type="submit">Submit</Button>
+                  <LinkContainer to="/products">
+                    <Button bsStyle="link">Back</Button>
+                  </LinkContainer>
+                </ButtonToolbar>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Panel.Body>
+      </Panel>
     );
   }
 }
