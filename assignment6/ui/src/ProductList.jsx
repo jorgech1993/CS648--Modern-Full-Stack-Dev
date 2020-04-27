@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ProductTable from './ProductTable.jsx';
-import ProductAdd from './ProductAdd.jsx';
 import graphQLFetch from './graphQLFetch.jsx';
 
 export default class Inventory extends React.Component {
@@ -9,21 +8,10 @@ export default class Inventory extends React.Component {
     super();
     this.deleteProduct = this.deleteProduct.bind(this);
     this.state = { products: [] };
-    this.createProduct = this.createProduct.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
-  }
-
-  async createProduct(product) {
-    const query = `mutation productAdd($product: ProductInputs!) {
-  productAdd(product: $product) { id } }`;
-
-    const data = await graphQLFetch(query, { product });
-    if (data) {
-      this.loadData();
-    }
   }
 
   async loadData() {
@@ -64,9 +52,6 @@ async deleteProduct(index) {
     return (
       <React.Fragment>
         <ProductTable products={this.state.products} deleteProduct={this.deleteProduct}/>
-        <div id="fieldsHeader">Add a new product to inventory</div>
-        <hr align="left" />
-        <ProductAdd createProduct={this.createProduct} />
       </React.Fragment>
     );
   }

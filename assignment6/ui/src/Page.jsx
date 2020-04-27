@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Contents from './Contents.jsx';
+import ProductAddNavItem from './ProductAddNavItem.jsx';
 import {
   Navbar, Nav, NavItem, NavDropdown,
-  MenuItem, Glyphicon, Tooltip, OverlayTrigger,
+  MenuItem, Glyphicon,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -17,20 +18,12 @@ function NavBar() {
         <LinkContainer exact to="/">
           <NavItem>Home</NavItem>
         </LinkContainer>
-        <LinkContainer to="/issues">
+        <LinkContainer to="/products">
           <NavItem>Product List</NavItem>
         </LinkContainer>
       </Nav>
       <Nav pullRight>
-        <NavItem>
-          <OverlayTrigger
-            placement="left"
-            delayShow={1000}
-            overlay={<Tooltip id="create-issue">Create Product</Tooltip>}
-          >
-            <Glyphicon glyph="plus" />
-          </OverlayTrigger>
-        </NavItem>
+        <ProductAddNavItem />
         <NavDropdown
           id="user-dropdown"
           title={<Glyphicon glyph="option-vertical" />}
