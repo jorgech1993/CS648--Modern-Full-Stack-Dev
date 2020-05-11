@@ -36,6 +36,14 @@ async function update(_, { id, changes }) {
   return savedProduct;
 }
 
+async function total() {
+  const db = getDb();
+
+  const results = await db.collection('products').find().count();
+
+  return results;
+}
+
 async function remove(_, { id }) {
   const db = getDb();
   const product = await db.collection('products').findOne({ id });
@@ -45,10 +53,28 @@ async function remove(_, { id }) {
   return true;
 }
 
+//db.products.aggregate([{ $group: { _id: null, count: { $sum: 1 } } }])
+async function count() {
+  const db = getDb();
+
+  const results = await db.collection('products').aggregate([
+    {
+      $group: {
+        _id: null,
+        numOfProducts: { $sum: 1 },
+      },
+    },
+  ]);
+
+
+  return results;
+}
+
 module.exports = {
   list,
   add,
   get,
   update,
   remove,
+  total,
 };

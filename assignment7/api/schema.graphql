@@ -15,6 +15,11 @@ type Product {
 	imageUrl: String
 }
 
+type ProductCount{
+	_id: ID
+	numOfProducts: Int
+}
+
 input ProductInputs {
 	category: Categories = Shirts
 	pricePerUnit: Float
@@ -24,10 +29,10 @@ input ProductInputs {
 
 """Inputs for productUpdate."""
 input ProductUpdateInputs {
-  productName: String!
-  category: Categories
-  pricePerUnit: Float
-  imageUrl: String
+  	productName: String!
+  	category: Categories
+  	pricePerUnit: Float
+  	imageUrl: String
 }
 
 ##### Top Level declarations
@@ -36,6 +41,7 @@ type Query {
 	about: String!
 	productList: [Product!]!
 	product(id: Int!): Product!
+	productCount: Int
 }
 
 type Mutation {

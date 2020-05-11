@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ProductTable from './ProductTable.jsx';
+import ProductCount from './ProductCount.jsx';
 import graphQLFetch from './graphQLFetch.jsx';
 
 export default class Inventory extends React.Component {
@@ -11,6 +12,10 @@ export default class Inventory extends React.Component {
   }
 
   componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
     this.loadData();
   }
 
@@ -26,6 +31,7 @@ export default class Inventory extends React.Component {
       this.setState({ products: data.productList });
     }
   }
+
 
 async deleteProduct(index) {
     const query = `mutation productDelete($id: Int!) {
@@ -48,9 +54,11 @@ async deleteProduct(index) {
       this.loadData();
     }
   }
+
   render() {
     return (
       <React.Fragment>
+        <ProductCount/>
         <ProductTable products={this.state.products} deleteProduct={this.deleteProduct}/>
       </React.Fragment>
     );

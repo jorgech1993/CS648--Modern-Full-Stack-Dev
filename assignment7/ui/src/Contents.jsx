@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import ProductList from './ProductList.jsx';
 import ProductEdit from './ProductEdit.jsx';
 
-const NotFound = () => <h1>Page Not Foumd </h1>;
+const NotFound = () => <h1>Page Not Found </h1>;
 
 export default function Contents() {
 	return (

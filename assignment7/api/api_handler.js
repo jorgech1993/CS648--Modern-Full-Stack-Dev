@@ -10,6 +10,7 @@ const resolvers = {
     about: about.getMessage,
     productList: product.list,
     product: product.get,
+    productCount: product.total,
   },
   Mutation: {
     setAboutMessage: about.setMessage,
